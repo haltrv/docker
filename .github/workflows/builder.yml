@@ -82,6 +82,10 @@ jobs:
           abi: cp314
           arch: ${{ matrix.arch }}
           wheels-key: ${{ secrets.WHEELS_KEY }}
+          wheels-host: ${{ vars.WHEELS_HOST }}
+          wheels-host-path: ${{ vars.WHEELS_HOST_PATH }}
+          wheels-user: ${{ vars.WHEELS_USER }}
+          wheels-index: ${{ vars.WHEELS_INDEX }}
           apk: "mariadb-dev;postgresql-dev;libffi-dev"
           requirements: "requirements.txt"
 
