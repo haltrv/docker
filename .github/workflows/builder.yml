@@ -15,7 +15,7 @@ on:
     types: ["published"]
 
 env:
-  ARCHITECTURES: '["amd64", "aarch64"]'
+  ARCHITECTURES: '["amd64", "aarch64", "riscv64"]'
   BUILD_TYPE: generic
   IMAGE_NAME: homeassistant-base
 
