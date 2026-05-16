@@ -72,6 +72,7 @@ jobs:
         with:
           files: |
             requirements.txt
+            requirements_core.txt
             .github/workflows/builder.yml
 
       - name: Build wheels cp314
@@ -84,6 +85,21 @@ jobs:
           wheels-key: ${{ secrets.WHEELS_KEY }}
           apk: "mariadb-dev;postgresql-dev;libffi-dev"
           requirements: "requirements.txt"
+
+      - name: Build wheels cp314 core
+        uses: haltrv/wheels@2026.07.101
+        if: github.event_name == 'release' || steps.wheels_deps_changed.outputs.any_changed == 'true'
+        with:
+          tag: musllinux_1_2
+          abi: cp314
+          arch: ${{ matrix.arch }}
+          wheels-key: ${{ secrets.WHEELS_KEY }}
+          wheels-host: ${{ vars.WHEELS_HOST }}
+          wheels-host-path: ${{ vars.WHEELS_HOST_PATH }}
+          wheels-user: ${{ vars.WHEELS_USER }}
+          wheels-index: ${{ vars.WHEELS_INDEX }}
+          apk: "libjpeg-turbo-dev"
+          requirements: "requirements_core.txt"
 
       - name: Build base image
         uses: home-assistant/builder/actions/build-image@4de35182ce1e329181bffcbcc84d33db5e2c7e10 # 2026.06.0
