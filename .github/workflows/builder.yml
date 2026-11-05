@@ -52,6 +52,9 @@ jobs:
     name: Build ${{ matrix.arch }} base image
     needs: init
     runs-on: ${{ matrix.os }}
+    concurrency:  # FIXME: workaround race condition of rsync upload from multiple base image builds
+      group: ci-${{ github.ref }}
+      queue: max
     permissions:
       contents: read
       id-token: write
